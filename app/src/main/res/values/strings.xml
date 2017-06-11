@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MeinWetter</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_search_field">Location</string>
+    <string name="choose_search_button">Search</string>
+    <string name="current_default_content_description_image">no description</string>
+    <string name="current_default_content_description_button">change location</string>
+    <string name="current_lbl_condition">Weather:</string>
+    <string name="current_lbl_pressure">Pressure:</string>
+    <string name="current_lbl_humidity">Humidity:</string>
+    <string name="current_lbl_wind">Wind:</string>
+    <string name="current_lbl_cloudiness">Cloudiness:</string>
+    <string name="current_lbl_rain_snow_volume">Rain volume:</string>
+    <string name="widget_lbl_now">Jetzt</string>
+    <string name="widget_lbl_today">Heute</string>
+    <string name="content_diagonal_line">Seperator</string>
+</resources>
