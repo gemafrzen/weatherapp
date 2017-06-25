@@ -16,5 +16,8 @@
     <string name="current_lbl_rain_snow_volume">Rain volume:</string>
     <string name="widget_lbl_now">Jetzt</string>
     <string name="widget_lbl_today">Heute</string>
+    <string name="widget_lbl_location">Location</string>
     <string name="content_diagonal_line">Seperator</string>
+    <string name="title_activity_current_weather_widget_configure">Widget Configuration</string>
+
 </resources>

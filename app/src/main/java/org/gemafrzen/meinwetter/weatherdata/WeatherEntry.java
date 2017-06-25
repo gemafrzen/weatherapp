@@ -1,4 +1,4 @@
-package org.gemafrzen.meinwetter;
+package org.gemafrzen.meinwetter.weatherdata;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,4 +1,4 @@
-package org.gemafrzen.meinwetter;
+package org.gemafrzen.meinwetter.weatherdata;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -22,8 +22,8 @@ public class WeatherAtLocation implements Parcelable {
     private WeatherAtLocation(Parcel in) {
         WeatherEntry[] parcelableDayList;
         location = in.readString();
-        currentWeather = in.readParcelable(org.gemafrzen.meinwetter.WeatherEntry.class.getClassLoader());
-        parcelableDayList = (WeatherEntry[]) in.readParcelableArray(org.gemafrzen.meinwetter.WeatherEntry.class.getClassLoader());
+        currentWeather = in.readParcelable(WeatherEntry.class.getClassLoader());
+        parcelableDayList = (WeatherEntry[]) in.readParcelableArray(WeatherEntry.class.getClassLoader());
 
         this.dayList = new ArrayList<>();
         for(int i = 0; i < parcelableDayList.length; i++){

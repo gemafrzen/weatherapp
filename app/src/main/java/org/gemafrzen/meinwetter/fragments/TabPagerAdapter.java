@@ -1,4 +1,4 @@
-package org.gemafrzen.meinwetter;
+package org.gemafrzen.meinwetter.fragments;
 
 
 import android.app.Fragment;
@@ -6,8 +6,6 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
-
-import org.gemafrzen.meinwetter.WeatherFragment;
 
 /**
  * Created by Erik on 28.05.2017.

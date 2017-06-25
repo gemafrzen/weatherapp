@@ -1,4 +1,4 @@
-package org.gemafrzen.meinwetter;
+package org.gemafrzen.meinwetter.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.gemafrzen.meinwetter.R;
+import org.gemafrzen.meinwetter.weatherdata.WeatherAtLocation;
+import org.gemafrzen.meinwetter.weatherdata.WeatherEntry;
 
 
 /**

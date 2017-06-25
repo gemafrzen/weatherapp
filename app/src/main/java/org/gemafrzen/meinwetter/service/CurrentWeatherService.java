@@ -8,8 +8,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.gemafrzen.meinwetter.R;
-import org.gemafrzen.meinwetter.WeatherAtLocation;
-import org.gemafrzen.meinwetter.WeatherEntry;
+import org.gemafrzen.meinwetter.weatherdata.WeatherAtLocation;
+import org.gemafrzen.meinwetter.weatherdata.WeatherEntry;
 import org.gemafrzen.meinwetter.http.HttpHandler;
 import org.json.JSONException;
 import org.json.JSONObject;

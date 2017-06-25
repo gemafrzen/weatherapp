@@ -1,4 +1,4 @@
-package org.gemafrzen.meinwetter;
+package org.gemafrzen.meinwetter.activities;
 
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
@@ -9,14 +9,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.gemafrzen.meinwetter.R;
+import org.gemafrzen.meinwetter.fragments.TabPagerAdapter;
+import org.gemafrzen.meinwetter.weatherdata.WeatherAtLocation;
+import org.gemafrzen.meinwetter.fragments.WeatherFragment;
 import org.gemafrzen.meinwetter.service.CurrentWeatherService;
 
 import java.util.ArrayList;
@@ -128,6 +130,5 @@ public class CurrentWeatherActivity extends AppCompatActivity implements Weather
         Intent mServiceIntent = new Intent(this, CurrentWeatherService.class);
         mServiceIntent.putExtra(CurrentWeatherService.WEATHER_SERVICE_EXTRA_STRING_ARRAY, new String[] {uri.toString()});
         this.startService(mServiceIntent);
-
     }
 }
