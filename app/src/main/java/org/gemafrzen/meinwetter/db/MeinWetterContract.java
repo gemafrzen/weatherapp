@@ -14,7 +14,9 @@ public final class MeinWetterContract {
     public static final String CONTENT_AUTHORITY = "org.gemafrzen.meinwetter";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String PATH_LOCATIONS = "locations";
-    public static final String PATH_PROPERTIES = "properties";
+    public static final String PATH_WEATHER = "weather";
+
+
     private MeinWetterContract() {}
 
 
@@ -23,7 +25,9 @@ public final class MeinWetterContract {
         public static final String TABLE_NAME = "locations";
 
         public static final String COLUMN_LOCATION = "location";
-
+        public static final String COLUMN_COUNTRYCODE= "countrycode";
+        public static final String COLUMN_LATITUDE = "latitude";
+        public static final String COLUMN_LONGITUDE = "longitude";
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATIONS).build();
 
@@ -44,23 +48,40 @@ public final class MeinWetterContract {
 
 
     /** Inner class that defines the table contents of the trainging day table. */
-    public static final class PropertyEntry implements BaseColumns {
+    public static final class WeatherEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "training_day";
+        public static final String TABLE_NAME = "weather";
 
-        public static final String COLUMN_PROPERTY = "property";
-        public static final String COLUMN_VALUE = "value";
+        public static final String COLUMN_LOCATIONS_ID = "locationsId";
+        public static final String COLUMN_IS_FORECAST = "isForecast";
+        public static final String COLUMN_FORECAST_DAY = "forecastDay";
+        public static final String COLUMN_CURRENTICON = "currentIcon";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_CURRENT_TEMPERATURE = "currentTemperature";
+        public static final String COLUMN_TEMPERATURE_MORNING = "temperatureAtMorning";
+        public static final String COLUMN_TEMPERATURE_DAY = "temperatureAtDay";
+        public static final String COLUMN_TEMPERATURE_EVENTING = "temperatureAtEvening";
+        public static final String COLUMN_TEMPERATURE_NIGHT = "temperatureAtNight";
+        public static final String COLUMN_TEMPERATURE_MIN = "temperatureMin";
+        public static final String COLUMN_TEMPERATURE_MAX = "temperatureMax";
+        public static final String COLUMN_PRESSURE = "pressure";
+        public static final String COLUMN_HUMIDITY = "humidity";
+        public static final String COLUMN_WINDSPEED = "windspeed";
+        public static final String COLUMN_WINDDEGREE = "winddegree";
+        public static final String COLUMN_CLOUDINESS = "cloudiness";
+        public static final String COLUMN_SNOWVOLUME = "snowvolume";
+        public static final String COLUMN_RAINVOLUME = "rainvolume";
 
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_PROPERTIES).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEATHER).build();
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY +
-                        "/" + PATH_PROPERTIES;
+                        "/" + PATH_WEATHER;
 
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY +
-                        "/" + PATH_PROPERTIES;
+                        "/" + PATH_WEATHER;
 
         // Helper method.
         public static Uri buildTrainingDayUri(long id) {

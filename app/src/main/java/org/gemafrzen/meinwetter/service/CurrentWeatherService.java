@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.gemafrzen.meinwetter.R;
+import org.gemafrzen.meinwetter.db.DatabaseProvider;
 import org.gemafrzen.meinwetter.weatherdata.WeatherAtLocation;
 import org.gemafrzen.meinwetter.weatherdata.WeatherEntry;
 import org.gemafrzen.meinwetter.http.HttpHandler;
@@ -29,6 +30,7 @@ public class CurrentWeatherService extends IntentService {
     private String appid = "";
 
     private LinkedList<WeatherAtLocation> currentWeatherList;
+    private DatabaseProvider databaseProvider;
 
     public CurrentWeatherService(){
         super("CurrentWeatherService");
@@ -94,20 +96,63 @@ public class CurrentWeatherService extends IntentService {
     }
 
     private void collectCurrentWeatherFor(String location){
-        checkApiID();
+        if(databaseProvider == null)
+            databaseProvider = new DatabaseProvider(this.getApplicationContext());
 
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + location
-                + "&units=metric&APPID=" + appid;
-        new GetWeather(url, location).execute();
+        WeatherEntry we = databaseProvider.getCurrentWeather(location);
+
+        if(we != null){
+            WeatherAtLocation wal = new WeatherAtLocation(location);
+            wal.setToday(we);
+            this.sendWeatherToReceiver(wal, true);
+        }else{
+            checkApiID();
+            new GetWeather("http://api.openweathermap.org/data/2.5/weather?q=" + location
+                    + "&units=metric&APPID=" + appid,
+                    location).execute();
+        }
     }
 
     private void collectForecastFor(String location){
-        checkApiID();
+        if(databaseProvider == null)
+            databaseProvider = new DatabaseProvider(this.getApplicationContext());
 
-        String url = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + location
-                + "&cnt=3&units=metric&APPID=" + appid;
-        new GetWeather(url, location).execute();
+        //TODO refactor Forecast = 3 into settings
+        WeatherEntry we1 = databaseProvider.getForecastWeather(location, 0);
+        WeatherEntry we2 = databaseProvider.getForecastWeather(location, 1);
+        WeatherEntry we3 = databaseProvider.getForecastWeather(location, 2);
+
+        if(we1 != null && we2 != null && we3 != null){
+            WeatherAtLocation wal = new WeatherAtLocation(location);
+            wal.addToDaylist(we1);
+            wal.addToDaylist(we2);
+            wal.addToDaylist(we3);
+            this.sendWeatherToReceiver(wal, true);
+        }else{
+            checkApiID();
+
+            new GetWeather("http://api.openweathermap.org/data/2.5/forecast/daily?q=" + location
+                    + "&cnt=3&units=metric&APPID=" + appid,
+                    location).execute();
+        }
     }
+
+
+    private void writeWeatherEntryToDatabase(WeatherAtLocation newEntryFromService){
+        if(databaseProvider == null)
+            databaseProvider = new DatabaseProvider(this.getApplicationContext());
+
+        WeatherEntry we = newEntryFromService.getCurrentWeather();
+
+        if(we != null) databaseProvider.saveWeatherEntry(we, false, 0);
+
+        for( int i = 0; i < newEntryFromService.getForcastSize(); i++){
+            we = newEntryFromService.getForcast(i);
+            if(we != null)
+                databaseProvider.saveWeatherEntry(we, true, i);
+        }
+    }
+
 
     private class GetWeather extends AsyncTask<Void, Void, Void> {
 
@@ -129,6 +174,7 @@ public class CurrentWeatherService extends IntentService {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            writeWeatherEntryToDatabase(wal);
             sendWeatherToReceiver(wal, true); //TODO true nicht hardcoden
         }
 
